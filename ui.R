@@ -7,7 +7,7 @@ ui = fluidPage(
   column(3,
     navbarPage(title="Processing Options",
       tabPanel(title="Load Data",
-        "This panel will load data"
+        LoadDataUI("Test")
       ),
       navbarMenu(title = "Non Spatial Processing Options",
         tabPanel(title="Process1",
