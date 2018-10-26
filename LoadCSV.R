@@ -2,9 +2,9 @@ LoadCSVUI = function(id){
   ns=NS(id)
   tagList(
     # Input: Select a file ----
-    fileInput(ns("InputFile"),
+    fileInput(ns("inputFile"),
       "Choose CSV File",
-      multiple = T,
+      multiple = F,
       accept = c(
         "text/csv",
         "text/comma-separated-values,text/plain",
@@ -47,34 +47,21 @@ LoadCSVUI = function(id){
     ),
     # Horizontal line ----
     tags$hr(),
-    
-    # Input: Select number of rows to display ----
-    radioButtons(ns("disp"),
-      "Display",
-      choices = c(
-        Head = "head",
-        All = "all"
-      ),
-      selected = "all"
-    ),
-    actionButton(ns("Button"),
+    # Input: Action button to confirm data load
+    actionButton(ns("loadDataButton"),
       "Load"
     )
   )
 }
 
-LoadData = function(input,output,session){
-  reactive({
+LoadCSV = function(input,output,session){
+  userFile=reactive({
+    # If no file is selected, don't do anything
+    validate(need(input$inputFile,message="Select a Data set!"))
     input$inputFile
-    if(!is.null(input$inputFile)){
-      df=read.csv(input$inputFile$datapath,header=input$header,sep=input$sep,quote=input$quote,stringsAsFactors = input$saf)
-      if(input$disp == "all"){
-        return(df)
-      }else{
-        return(head(df))
-      }
-    }else{
-      return(NULL)
-    }
+  })
+  
+  df=eventReactive(input$loadDataButton,{
+    read.csv(userFile()$datapath,header=input$header,sep=input$sep,quote=input$quote,stringsAsFactors = input$saf)
   })
 }
