@@ -2,15 +2,14 @@
 
 library(shiny)
 library(DT)
-source("LoadCSV.R")
+source("LoadDataUI.R")
+source("DataPanels.R")
 
 ui = fluidPage(
   column(2,
     navbarPage(title="Processing Options",
-      navbarMenu(title="Load Data",
-        tabPanel(title="CSV",
-          LoadCSVUI("csv")
-        )
+      tabPanel(title="Load Data",
+        LoadDataUI("data")
       ),
       navbarMenu(title = "Non Spatial Processing Options",
         tabPanel(title="Process1",
@@ -44,7 +43,7 @@ ui = fluidPage(
       ##DataPanelsUI("dataPanels")
     ),
     fluidRow(
-      DT::dataTableOutput("dataTable")
+      tabsetPanel(id="myTabs", type="pills")
     )
   )
 )
