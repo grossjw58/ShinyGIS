@@ -2,12 +2,15 @@
 library(shiny)
 source("LoadDataServer.R")
 function(input,output){
-  dataSetList=list()
+  dataSetList=reactiveValues()
+  dataNameList=reactiveValues()
   data=callModule(LoadData,"data")
-  tabIndex=reactiveVal(0)
+  
+  
   observeEvent(data(),{
-    tabIndex(tabIndex() + 1)
-    appendTab("myTabs", tabPanel(tabIndex(), list(DT::renderDataTable(data()))), select=TRUE)
+    temp=data()
+    dataSetList$temp$name=temp$data
+    dataNameList$temp$name=temp$name
+    ##appendTab("myTabs", tabPanel(data()$name, list(DT::renderDataTable(temp$data))), select=TRUE)
   })
-  #output$dataTable=DT::renderDataTable(csvData())
 }

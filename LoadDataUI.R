@@ -13,19 +13,14 @@ LoadDataUI = function(id){
         ##get some other file formats
       )
     ),
+    # Input: file input to get a file from the user ----
+    fileInput(ns("inputFile"),
+      "Choose CSV File",
+      multiple = F
+    ),
     ## a conditional panel for csv
     conditionalPanel(
       condition = paste0('input[\'',ns('dataType'),"\']==\'csv\'"),
-      # Input: Select a file ----
-      fileInput(ns("inputFile_csv"),
-        "Choose CSV File",
-        multiple = F,
-        accept = c(
-          "text/csv",
-          "text/comma-separated-values,text/plain",
-          ".csv"
-        )
-      ),
       # Horizontal line ----
       tags$hr(),
       # Input: Checkbox if file has header ----

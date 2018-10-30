@@ -4,6 +4,7 @@ library(shiny)
 library(DT)
 source("LoadDataUI.R")
 source("DataPanels.R")
+source("RegressionUI.R")
 
 ui = fluidPage(
   column(2,
@@ -19,7 +20,7 @@ ui = fluidPage(
           "This will be affinity propogation or somthing"
         ),
         tabPanel(title="Process3",
-          "This will be Regression or something"
+          RegressionUI("regression")
         )
       ),
       navbarMenu(title = "Spatial Processing Options",
