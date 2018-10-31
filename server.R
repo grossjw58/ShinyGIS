@@ -2,11 +2,15 @@
 library(shiny)
 source("LoadDataServer.R")
 source("RegressionServer.R")
+source("PcaServer.R")
 function(input,output){
   dataSetList=reactiveValues()
   dataNameList=reactiveValues()
-  dataNameListReactive=reactive({dataNameList})
+  
+  
   data=callModule(LoadData,"data")
+  
+  pca=callModule(PcaSer,"pca")
   
   observeEvent(data(),{
     temp=data()
@@ -16,11 +20,6 @@ function(input,output){
     appendTab("myTabs", tabPanel(data()$name, list(DT::renderDataTable(dataSetList[[name]]))), select=TRUE)
   })
   
-  observe({dataNameList
-    print("dataNameList has changed")
-    print(reactiveValuesToList(dataNameList))
-  })
-  
   regression=callModule(RegressionServer,"regression",dataNames=dataNameList,dataList=dataSetList)
-  print("it passed the regression function")
+
 }

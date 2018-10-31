@@ -3,8 +3,9 @@
 library(shiny)
 library(DT)
 source("LoadDataUI.R")
-source("DataPanels.R")
 source("RegressionUI.R")
+source("PcaUI.R")
+
 
 ui = fluidPage(
   column(2,
@@ -13,13 +14,13 @@ ui = fluidPage(
         LoadDataUI("data")
       ),
       navbarMenu(title = "Non Spatial Processing Options",
-        tabPanel(title="Process1",
-          "This will be PCA or something"
+        tabPanel(title="Process1"
+         ##"This will be PCA or something"
         ),
-        tabPanel(title="Process2",
-          "This will be affinity propogation or somthing"
+        tabPanel(title="PCA",
+          PcaUI("pca")
         ),
-        tabPanel(title="Process3",
+        tabPanel(title="Linear Regression",
           RegressionUI("regression")
         )
       ),

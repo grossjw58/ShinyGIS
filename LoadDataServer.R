@@ -1,4 +1,3 @@
-##library(maptools)
 LoadData=function(input,output,session){
   userFile=reactive({
     # If no file is selected, don't do anything
